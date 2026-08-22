@@ -23,15 +23,14 @@ different mechanisms:
 
 ## EdgeTX firmware + SD content
 
-`update-edgetx.sh` downloads the latest firmware zip, extracts `pocket-*.bin`
-into `FIRMWARE/`, downloads `bw128x64.zip` (staged, not yet merged), and updates
-`edgetx.sdcard.version`. Then **you**:
+`update-edgetx.sh` downloads the latest firmware zip and extracts `pocket-*.bin`
+into `FIRMWARE/`, then merges the `bw128x64.zip` base SD content (preserving
+your `MODELS/` and `RADIO/`), which also refreshes `edgetx.sdcard.version`.
+Add `--sounds` to also merge the English voice pack. Then **you**:
 
 1. Safely eject the SD card.
 2. Flash via bootloader: radio off → hold both trim switches inward + power →
    **Write Firmware** → select `pocket-*.bin` → long-press → reboot.
-3. Reconnect in **USB Storage** mode so the script can merge the staged SD
-   content (sounds/scripts) and clear the SD-version warning.
 
 > The bootloader method needs no browser/DFU/udev setup. EdgeTX Buddy (web) is
 > the alternative for the firmware step but needs Chromium + DFU udev rules.

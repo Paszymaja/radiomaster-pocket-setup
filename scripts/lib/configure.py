@@ -50,8 +50,8 @@ def model_indices(models_dir):
 def find_model_by_name(models_dir, name):
     for m in glob.glob(os.path.join(models_dir, "model*.yml")):
         with open(m) as f:
-            head = f.read(512)
-        if re.search(r'name:\s*"%s"' % re.escape(name), head):
+            text = f.read()
+        if re.search(r'name:\s*"%s"' % re.escape(name), text):
             return m
     return None
 

@@ -44,7 +44,7 @@ it as the default model. Idempotent — safe to re-run.
 
 ```bash
 ./scripts/check-versions.sh   # see what's outdated
-./scripts/update-edgetx.sh    # stages firmware + SD content, prints flash steps
+./scripts/update-edgetx.sh    # downloads firmware + merges SD content, prints flash steps
 ```
 
 The EdgeTX firmware flash is done on the radio:

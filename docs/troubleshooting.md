@@ -35,8 +35,8 @@ sudo chmod a+rw /dev/ttyACM0
 **Cause**: `edgetx.sdcard.version` doesn't match the firmware. The bootloader
 flash updates only firmware, not the SD content marker.
 
-**Fix**: run `./scripts/update-edgetx.sh` (updates the marker + stages SD
-content) and reconnect in USB Storage mode so it can merge the content.
+**Fix**: run `./scripts/update-edgetx.sh` — it merges the latest SD content and
+refreshes `edgetx.sdcard.version` to match.
 
 ## ELRS Lua script missing / "Loading…" stuck
 

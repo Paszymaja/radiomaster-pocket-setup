@@ -82,12 +82,18 @@ format until loaded.
 
 ## Version sources (GitHub API)
 
-- EdgeTX firmware: `api.github.com/repos/EdgeTX/edgetx/releases/latest`
-  (firmware zip contains `pocket-<hash>.bin`).
-- EdgeTX SD content: `api.github.com/repos/EdgeTX/edgetx-sdcard/releases/latest`
-  (`bw128x64.zip` for the Pocket).
-- ExpressLRS: `api.github.com/repos/ExpressLRS/ExpressLRS/releases/latest`
-  (`elrs.lua` release asset).
+- **Do NOT use `releases/latest`** for EdgeTX — it returns the most recently
+  *published* release, and EdgeTX keeps parallel lines (2.11.x for older
+  STM32F2 radios, 2.12.x for the Pocket/F4). Use the highest non-prerelease
+  tag by semver instead (implemented in `gh_latest_tag`).
+- EdgeTX firmware: `repos/EdgeTX/edgetx/releases` → firmware zip contains
+  `pocket-<hash>.bin` (tag like `v2.12.2`).
+- EdgeTX SD content: `repos/EdgeTX/edgetx-sdcard/releases` → `bw128x64.zip`
+  (Pocket is monochrome 128x64).
+- EdgeTX sound pack: `repos/EdgeTX/edgetx-sdcard-sounds/releases` → asset
+  `edgetx-sdcard-sounds-en-<ver>.zip` (note the `-en-`, not `en.zip`).
+- ExpressLRS: `repos/ExpressLRS/ExpressLRS/releases` (tag like `4.1.0`, no `v`);
+  `elrs.lua` release asset.
 - Installed EdgeTX version: read `semver:` from `RADIO/radio.yml`.
 - Installed SD content: read `edgetx.sdcard.version`.
 - Installed ELRS module version: **not readable from the SD** — read on the radio

@@ -40,19 +40,29 @@ detect_sd() {
 }
 
 # --- GitHub API ------------------------------------------------------------
-# gh_latest_tag <owner/repo>  -> prints latest release tag (e.g. "v2.12.2")
+# gh_latest_tag <owner/repo>  -> highest non-prerelease tag by semver
+#                                 (NOT "releases/latest", which is most-recently
+#                                  published — EdgeTX keeps parallel 2.11/2.12
+#                                  lines where that would pick the wrong one).
 gh_latest_tag() {
-  curl -fsSL "https://api.github.com/repos/$1/releases/latest" \
-    | python3 -c 'import sys,json;print(json.load(sys.stdin)["tag_name"])'
+  curl -fsSL "https://api.github.com/repos/$1/releases?per_page=100" \
+    | python3 -c 'import sys,json,re
+rs=[r["tag_name"] for r in json.load(sys.stdin) if not r.get("prerelease") and not r.get("draft")]
+def key(t):
+    m=re.match(r"v?(\d+)\.(\d+)\.(\d+)", t)
+    return tuple(int(x) for x in m.groups()) if m else (0,0,0)
+print(max(rs, key=key))'
 }
 
-# gh_asset_url <owner/repo> <grep>  -> prints the first matching asset download URL
+# gh_asset_url <owner/repo> <needle> [tag]  -> first matching asset download URL
 gh_asset_url() {
-  curl -fsSL "https://api.github.com/repos/$1/releases/latest" \
+  local repo="$1" needle="$2" tag="${3:-}"
+  [ -z "$tag" ] && tag="$(gh_latest_tag "$repo")"
+  curl -fsSL "https://api.github.com/repos/$repo/releases/tags/$tag" \
     | python3 -c 'import sys,json
 d=json.load(sys.stdin)
 needle=sys.argv[1]
 for a in d.get("assets",[]):
     if needle in a["name"]:
-        print(a["browser_download_url"]); break' "$2"
+        print(a["browser_download_url"]); break' "$needle"
 }
