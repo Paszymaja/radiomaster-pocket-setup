@@ -1,0 +1,14 @@
+# SD card backups (contain device-specific data)
+pocket-sd-backups/
+
+# Downloaded firmware / SD content / tools
+*.zip
+*.bin
+*.AppImage
+
+# Scratch
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
