@@ -1,14 +1,19 @@
 # Updating when new versions are released
 
-The Pocket has **three** independently-versioned components, updated by three
-different mechanisms:
+The Pocket and Meteor have independently versioned components:
 
 | Component | Version source | Update mechanism |
 |-----------|----------------|------------------|
-| EdgeTX firmware | `api.github.com/repos/EdgeTX/edgetx/releases/latest` | bootloader flash (`pocket-*.bin`) |
-| EdgeTX SD content | `api.github.com/repos/EdgeTX/edgetx-sdcard/releases/latest` | merge `bw128x64.zip` |
-| ExpressLRS module | `api.github.com/repos/ExpressLRS/ExpressLRS/releases/latest` | Configurator `EdgeTXPassthrough` |
-| ExpressLRS Lua | same ELRS release (`elrs.lua`) | copy to `SCRIPTS/TOOLS/` |
+| EdgeTX firmware | highest non-prerelease release by semver from `EdgeTX/edgetx` | bootloader flash (`pocket-*.bin`) |
+| EdgeTX SD content | highest non-prerelease release by semver from `EdgeTX/edgetx-sdcard` | merge `bw128x64.zip` |
+| ExpressLRS radio module | radio's ExpressLRS Lua version line | Configurator `EdgeTXPassthrough` |
+| ExpressLRS Lua | SD file `SCRIPTS/TOOLS/elrs.lua` | copy release asset to `SCRIPTS/TOOLS/` |
+| Meteor ExpressLRS receiver | receiver Web UI or connected Lua version line | Configurator `BetaflightPassthrough` |
+| Meteor Betaflight FC | Betaflight Configurator or CLI `version` | separate Betaflight update |
+
+Do **not** use GitHub `releases/latest` for EdgeTX: parallel supported release
+lines can make the most recently published release the wrong one for the
+Pocket. The repo scripts select the highest stable semantic version.
 
 ## Workflow
 
@@ -17,9 +22,12 @@ different mechanisms:
 ./scripts/update-edgetx.sh     # 2. if EdgeTX/SD content changed
 ./scripts/update-elrs.sh       # 3. if ELRS changed
 ./scripts/update-lua.sh        # 4. if Lua changed
+./scripts/update-meteor-elrs.sh # 5. prepare the Meteor receiver update
 ```
 
-`update.sh` runs the checks and calls the applicable updaters in order.
+`update.sh` runs the version check and the EdgeTX/SD/Lua storage-mode updaters;
+the radio module and Meteor receiver ELRS helpers are run separately.
+For the Meteor receiver and binding, follow [its setup record](meteor75-pro-ii-o4.md).
 
 ## EdgeTX firmware + SD content
 
@@ -44,7 +52,9 @@ Configurator; select:
 - Device category `RadioMaster 2.4 GHz` → device `RadioMaster Pocket Internal 2.4GHz TX`
 - Flashing method `EdgeTXPassthrough`
 - Regulatory domain: `2.4 GHz LBT` (EU) or `2.4 GHz ISM` (elsewhere)
-- Binding phrase (prompted — keep it identical across all your ELRS gear)
+- Binding phrase: optional; if used, keep it identical on devices that should
+  auto-bind. The Meteor receiver currently uses traditional binding with no
+  receiver phrase (see [its record](meteor75-pro-ii-o4.md)).
 
 After flashing, `update-lua.sh` refreshes the Lua script.
 

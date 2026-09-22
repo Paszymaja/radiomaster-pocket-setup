@@ -21,6 +21,9 @@
   (SA/SB/SC/SD/SE/P1), CRSF telemetry sensors. Use for real drones.
 - **FPV Sim** (created by `configure.sh`) — copy of POCKET with `moduleData.0.type
   = TYPE_NONE` (RF off), set as the default model for sim use.
+- **M75P2 O4** (created by `create-meteor75-pro-ii-o4.sh`) — dedicated Meteor75
+  Pro II O4 model copied from POCKET with internal ELRS/CRSF active. See
+  [the Meteor setup record](meteor75-pro-ii-o4.md).
 
 ## Device targets (ExpressLRS Configurator)
 

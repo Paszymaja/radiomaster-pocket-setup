@@ -68,6 +68,20 @@ format until loaded.
 4. Set `currModel: <index>` in `radio.yml` (index = the `XX` number).
    `currModel` is index-based → `model04.yml` is index 4.
 
+## Meteor75 Pro II O4 record
+
+- Read `docs/meteor75-pro-ii-o4.md` before changing this drone or its model.
+- `scripts/create-meteor75-pro-ii-o4.sh` clones the POCKET ELRS model as
+  `M75P2 O4`; it was `model05.yml` on this SD card, but detect the index.
+- `scripts/update-meteor-elrs.sh` guides a receiver flash via the official
+  ExpressLRS Configurator; it does not flash firmware itself.
+- Drone receiver: BETAFPV onboard **serial** ELRS 2.4 GHz AIO RX, target
+  `betafpv.rx_2400.aio` / `BETAFPV 2.4GHz AIO RX`, ESP8285 firmware family
+  `Unified_ESP8285_2400_RX`. Use Betaflight passthrough, not an SPI target.
+- On 2026-09-22 radio ELRS was 4.1.0 CE_LBT; drone RX was flashed from
+  3.5.6 ISM2G4 to 4.1.0 CE_LBT and traditional binding succeeded.
+- Radio YAML `stickMode: 1` is zero-based **Mode 2** (left-stick throttle).
+
 ## ExpressLRS (module + Lua)
 
 - Configurator targets: **Device category `RadioMaster 2.4 GHz`** →
@@ -78,7 +92,8 @@ format until loaded.
 - Serial access: user must be in the **`uucp`** group
   (`sudo usermod -aG uucp <user>` + re-login). Configurator is GUI-only.
 - Lua script: ELRS 4.x uses **`elrs.lua`** (delete old `elrsV3.lua`/`.luac`).
-- Binding phrase: case-sensitive, identical on TX + all receivers; never commit.
+- Binding phrase: optional, case-sensitive, identical on devices intended to
+  auto-bind; never commit. Traditional binding works with no phrase on the RX.
 
 ## Version sources (GitHub API)
 

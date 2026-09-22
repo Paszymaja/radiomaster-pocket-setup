@@ -74,5 +74,7 @@ Copies `elrs.lua` into `SCRIPTS/TOOLS/` and removes obsolete `elrsV3.*`.
 
 - **Sim**: with FPV Sim as the default model, connect USB and choose **Joystick**
   when the sim asks; calibrate in the sim.
-- **Real drone**: switch the model back to **POCKET** (the ELRS profile) and bind
-  your receiver (binding phrase auto-binds if you set one).
+- **Meteor75 Pro II O4**: select **M75P2 O4** and follow
+  [the Meteor receiver and binding record](meteor75-pro-ii-o4.md).
+- **Other real drone**: select its ELRS model and bind its receiver. A matching
+  binding phrase can automate reconnection.

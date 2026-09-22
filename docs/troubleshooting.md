@@ -51,6 +51,21 @@ The CRSF baudrate may be too high. This repo sets 5.25 M; if you get constant
 "Telemetry lost/recovered", lower it in the model's internal RF settings
 (400 K is the safe fallback).
 
+## Meteor receiver will not bind
+
+Read [the Meteor setup record](meteor75-pro-ii-o4.md) for this drone's exact
+receiver target and update sequence. Check the ELRS version line on the radio
+and receiver: their **major** versions must match, and this setup uses
+`CE_LBT` on both sides. Check that the `M75P2 O4` model is selected and its
+internal CRSF module is on. With a receiver that has no binding phrase,
+`bind_rx` in Betaflight CLI or **Bind Receiver** in the Receiver tab puts it
+into bind mode; then choose **Bind** in the radio's ExpressLRS tool. A solid
+receiver LED and `C` on the radio indicate a link.
+
+If Betaflight passthrough cannot open the drone's USB serial port, close
+Betaflight Configurator and other apps using it, then unplug/reconnect the
+drone USB cable before retrying.
+
 ## Restoring from a mistake
 
 Backups are in `~/pocket-sd-backups/`. To restore, mount the SD card in USB

@@ -35,8 +35,10 @@ ExpressLRS module update steps:
   4. Regulatory domain:
         2.4 GHz LBT  -> EU / CE (100 mW)
         2.4 GHz ISM  -> FCC / elsewhere (full power)
-  5. Binding phrase: set one and note it (case-sensitive; reuse it on all
-     receivers). It is NOT stored in this repo.
+  5. Binding phrase is optional. If you set one, record it privately and use
+     the same phrase on receivers meant to auto-bind. The Meteor receiver
+     currently has no phrase and was paired using the Lua Bind command.
+     A phrase is NOT stored in this repo.
   6. Click "Flash".
 
 After flashing, run ./scripts/update-lua.sh to refresh the Lua script.

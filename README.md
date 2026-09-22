@@ -17,6 +17,7 @@ can be reproduced or updated when EdgeTX / ExpressLRS publish new releases.
 | `docs/setup.md` | Full step-by-step, from a brand-new radio |
 | `docs/updating.md` | How to update EdgeTX / ELRS / SD content / Lua |
 | `docs/reference.md` | Settings reference, device targets, file map |
+| `docs/meteor75-pro-ii-o4.md` | Meteor radio model, receiver target, binding, future updates |
 | `docs/troubleshooting.md` | Known issues and fixes |
 | `scripts/*.sh` | Automation (backup, configure, check/update versions) |
 | `config/settings.env` | The radio settings applied by `configure.sh` |
@@ -41,6 +42,9 @@ can be reproduced or updated when EdgeTX / ExpressLRS publish new releases.
 # 3. Apply this repo's settings + create the "FPV Sim" model (idempotent)
 ./scripts/configure.sh
 
+# Optional: add a dedicated Meteor75 Pro II O4 ELRS model (idempotent)
+./scripts/create-meteor75-pro-ii-o4.sh
+
 # 4. See what's out of date
 ./scripts/check-versions.sh
 
@@ -48,15 +52,16 @@ can be reproduced or updated when EdgeTX / ExpressLRS publish new releases.
 ./scripts/update-edgetx.sh   # EdgeTX firmware + SD content
 ./scripts/update-elrs.sh     # internal ExpressLRS module
 ./scripts/update-lua.sh      # ExpressLRS Lua script
+./scripts/update-meteor-elrs.sh # Meteor onboard ELRS receiver guidance
 ```
 
-Each update script is **prepare + guide**: it downloads/stages everything that
-can be automated, then prints the exact physical steps (bootloader mode, USB
-mode selection) that must be done on the radio by hand.
+The EdgeTX and Lua updaters download and stage files. The ELRS helpers print
+the Configurator targets and connection steps; flashing is done in the
+Configurator. Radio bootloader and USB mode selections are done on the radio.
 
 ## Notes
 
-- The ELRS **binding phrase is never stored** here. `update-elrs.sh` prompts for
-  it interactively.
+- The ELRS **binding phrase is never stored** here. `update-elrs.sh` explains
+  the optional phrase setting; the Meteor receiver uses traditional binding.
 - Backups are written to `~/pocket-sd-backups/` and are git-ignored.
 - See `docs/reference.md` for the exact EdgeTX device targets and settings.
