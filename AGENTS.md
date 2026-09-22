@@ -81,6 +81,10 @@ format until loaded.
 - On 2026-09-22 radio ELRS was 4.1.0 CE_LBT; drone RX was flashed from
   3.5.6 ISM2G4 to 4.1.0 CE_LBT and traditional binding succeeded.
 - Radio YAML `stickMode: 1` is zero-based **Mode 2** (left-stick throttle).
+- Indoor Betaflight PID and Rate **Profile 2** (CLI index 1) are recorded in
+  `config/meteor75-pro-ii-o4-indoor.cli` and `docs/meteor75-pro-ii-o4.md`.
+  Factory PIDs/filters are copied; gentler Actual rates and a 30° Angle mode
+  limit provide the indoor feel. Profile 0's 1S auto-selection was disabled.
 
 ## ExpressLRS (module + Lua)
 

@@ -21,6 +21,7 @@ can be reproduced or updated when EdgeTX / ExpressLRS publish new releases.
 | `docs/troubleshooting.md` | Known issues and fixes |
 | `scripts/*.sh` | Automation (backup, configure, check/update versions) |
 | `config/settings.env` | The radio settings applied by `configure.sh` |
+| `config/meteor75-pro-ii-o4-indoor.cli` | Betaflight Profile 2 indoor tune for the Meteor |
 
 ## Prerequisites
 

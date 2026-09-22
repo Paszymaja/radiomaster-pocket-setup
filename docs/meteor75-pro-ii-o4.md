@@ -98,3 +98,46 @@ Recheck the endpoints and switch direction before flight.
 
 Do not confuse receiver firmware with the FC's Betaflight firmware or the DJI
 O4 air unit firmware; each has its own update process.
+
+## Indoor Betaflight Profile 2 (added 2026-09-22)
+
+The FC now has a visible **PID Profile 2** and **Rate Profile 2**, both named
+`INDOOR` and active after the save/reboot. Betaflight CLI indexes start at
+zero, so these are `profile 1` and `rateprofile 1`. The repeatable CLI commands
+are in [`config/meteor75-pro-ii-o4-indoor.cli`](../config/meteor75-pro-ii-o4-indoor.cli).
+They were applied and read back on this drone's Betaflight `2025.12.5-alpha`.
+After a future Betaflight update, check command compatibility before reusing
+the file.
+
+The **P, I, D, feedforward, and filter values** in PID Profile 2 match the
+factory `GF 1811` tune in Profile 1. Web recommendations cannot establish a
+better PID tune for this specific airframe without flight logs. The indoor
+changes are control limits:
+
+| Setting | Factory Profile 1 | Indoor Profile 2 |
+|---------|-------------------|------------------|
+| Angle mode maximum tilt | 60° | 30° |
+| Roll / pitch center sensitivity | 70°/s | 50°/s |
+| Roll / pitch maximum rate | 670°/s | 350°/s |
+| Yaw center / maximum rate | 70°/s / 670°/s | 50°/s / 300°/s |
+| Throttle limit | Off | Off; full lift remains available |
+
+The slower Actual rates follow [Betaflight's rate guidance](https://betaflight.com/docs/wiki/guides/current/Rate-Calculator),
+which describes a flatter center response for smooth flying. Betaflight keeps
+[PID and rate profiles separate](https://betaflight.com/docs/wiki/guides/current/Profiles).
+
+Profile 1 had `auto_profile_cell_count = 1`, which would select it when a 1S
+battery was detected. This was set to `0` so the chosen indoor profile stays
+active after power cycling; its factory PID and filter values were otherwise
+left as they were. Rate Profile 1 was left at its original settings. The
+existing Angle mode switch assignment was not changed; use Angle mode for the
+30° tilt limit to take effect. The Pocket's `SB` switch drives AUX2/CH6; its
+low range (900–1300) selects Angle mode in the saved Betaflight configuration.
+Rate Profile 2's gentler stick response applies
+in Acro as well. Select PID Profile 1 and Rate Profile 1 in Betaflight if you
+want the original outdoor feel, or select both Profile 2 slots for indoor use.
+
+The pre-change `diff all` was backed up locally under `/tmp` during this
+session. Make a fresh private backup before any later Betaflight changes, and
+check channel directions and arm switch with props removed before flying the
+new profile.

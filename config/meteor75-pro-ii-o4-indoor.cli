@@ -1,0 +1,51 @@
+profile 0
+set auto_profile_cell_count = 0
+
+profile 1
+set profile_name = INDOOR
+set dterm_lpf1_dyn_min_hz = 82
+set dterm_lpf1_dyn_max_hz = 165
+set dterm_lpf1_static_hz = 82
+set dterm_lpf2_static_hz = 165
+set throttle_boost = 0
+set p_pitch = 52
+set i_pitch = 89
+set d_pitch = 42
+set f_pitch = 73
+set p_roll = 40
+set i_roll = 67
+set d_roll = 26
+set f_roll = 56
+set p_yaw = 40
+set i_yaw = 67
+set f_yaw = 56
+set d_max_roll = 30
+set d_max_pitch = 48
+set feedforward_smooth_factor = 60
+set feedforward_jitter_factor = 12
+set dyn_idle_min_rpm = 30
+set simplified_master_multiplier = 85
+set simplified_i_gain = 95
+set simplified_d_gain = 105
+set simplified_pi_gain = 105
+set simplified_d_max_gain = 40
+set simplified_feedforward_gain = 55
+set simplified_pitch_d_gain = 140
+set simplified_pitch_pi_gain = 125
+set simplified_dterm_filter_multiplier = 110
+set tpa_rate = 70
+set angle_limit = 30
+
+rateprofile 1
+set rateprofile_name = INDOOR
+set rates_type = ACTUAL
+set roll_rc_rate = 5
+set pitch_rc_rate = 5
+set yaw_rc_rate = 5
+set roll_srate = 35
+set pitch_srate = 35
+set yaw_srate = 30
+
+profile 1
+rateprofile 1
+save
