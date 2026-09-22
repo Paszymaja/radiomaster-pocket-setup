@@ -84,7 +84,8 @@ format until loaded.
 - Indoor Betaflight PID and Rate **Profile 2** (CLI index 1) are recorded in
   `config/meteor75-pro-ii-o4-indoor.cli` and `docs/meteor75-pro-ii-o4.md`.
   Factory PIDs/filters are copied; gentler Actual rates and a 30° Angle mode
-  limit provide the indoor feel. Profile 0's 1S auto-selection was disabled.
+  limit provide the indoor feel. Indoor Rate Profile 2 also uses an 85% SCALE
+  throttle limit. Profile 0's 1S auto-selection was disabled.
 
 ## ExpressLRS (module + Lua)
 

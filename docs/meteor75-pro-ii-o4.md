@@ -120,11 +120,18 @@ changes are control limits:
 | Roll / pitch center sensitivity | 70°/s | 50°/s |
 | Roll / pitch maximum rate | 670°/s | 350°/s |
 | Yaw center / maximum rate | 70°/s / 670°/s | 50°/s / 300°/s |
-| Throttle limit | Off | Off; full lift remains available |
+| Throttle limit | Off | 85% `SCALE` |
 
 The slower Actual rates follow [Betaflight's rate guidance](https://betaflight.com/docs/wiki/guides/current/Rate-Calculator),
 which describes a flatter center response for smooth flying. Betaflight keeps
 [PID and rate profiles separate](https://betaflight.com/docs/wiki/guides/current/Profiles).
+The [Betaflight throttle limit](https://betaflight.com/docs/wiki/app/pid-tuning-tab)
+uses `SCALE`, so the whole throttle stick range remains usable. This reduces
+maximum climb power; it does not impose a fixed indoor flight speed. The 85%
+setting is a moderate starting point for this 1S HD whoop. Check a short hover
+and recovery from a gentle descent before flying close to obstacles; raise
+the percentage if control authority is insufficient, especially as the pack
+voltage falls.
 
 Profile 1 had `auto_profile_cell_count = 1`, which would select it when a 1S
 battery was detected. This was set to `0` so the chosen indoor profile stays
